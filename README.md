@@ -1,6 +1,7 @@
 # Meal-Plan-Workout-Plan-Calories-Recommendation
 <br>
 Aouther - Salman Siddique 
+<br>
 A web application that provides meal plans, estimated daily calories, and workout plans based on user input. The application uses machine learning models for predictions.
 
 ## Table of Contents
