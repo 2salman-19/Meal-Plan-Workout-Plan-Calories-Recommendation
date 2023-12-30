@@ -1,0 +1,151 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendation System</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+            color: #333;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .input-block {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .output {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            text-align: left;
+        }
+
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Meal Plan Workout Plan Calories Recommendation</h1>
+
+    <form method="POST" action="/predict_all">
+        <div class="input-block">
+            <div style="flex: 1; margin-right: 10px;">
+                <label for="Age">Age:</label>
+                <input type="number" name="Age" required>
+            </div>
+
+            <div style="flex: 1;">
+                <label for="Gender">Gender:</label>
+                <input type="text" name="Gender" required>
+            </div>
+        </div>
+
+        <div class="input-block">
+            <div style="flex: 1; margin-right: 10px;">
+                <label for="Height">Height:</label>
+                <input type="text" name="Height" required placeholder="e.g., 5.9">
+            </div>
+
+            <div style="flex: 1;">
+                <label for="Weight">Weight (kg):</label>
+                <input type="number" name="Weight" required>
+            </div>
+        </div>
+
+        <div class="input-block">
+            <div style="flex: 1; margin-right: 10px;">
+                <label for="Fitness_Level">Fitness Level:</label>
+                <select name="Fitness_Level" required>
+                    <option value="Overweight">Overweight</option>
+                    <option value="Underweight">Underweight</option>
+                    <option value="Normal weight">Normal weight</option>
+                    <option value="Obesity">Obesity</option>
+                </select>
+            </div>
+
+            <div style="flex: 1;">
+                <label for="Fitness_Goal">Fitness Goal:</label>
+                <select name="Fitness_Goal" required>
+                    <option value="weight loss">weight loss</option>
+                    <option value="weight gain">weight gain</option>
+                    <option value="muscle building">muscle building</option>
+                </select>
+            </div>
+        </div>
+
+        <label for="Medical_History">Medical History:</label>
+        <select name="Medical_History" required>
+            <option value="Diabetes">Diabetes</option>
+            <option value="Gout">Gout</option>
+            <option value="Hypercholesterolaemia">Hypercholesterolaemia</option>
+            <option value="Celiac">Celiac</option>
+            <option value="none">none</option>
+        </select>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if user_input %}
+        <div class="output">
+            <h2>User Input:</h2>
+            <p>Age: {{ user_input.Age }}</p>
+            <p>Gender: {{ user_input.Gender }}</p>
+            <p>Height: {{ user_input.Height }}</p>
+            <p>Weight: {{ user_input.Weight }}</p>
+            <p>Fitness Level: {{ user_input.Fitness_Level }}</p>
+            <p>Fitness Goal: {{ user_input.Fitness_Goal }}</p>
+            <p>Medical History: {{ user_input.Medical_History }}</p>
+        </div>
+    {% endif %}
+
+    {% if messages %}
+        <div class="output">
+            <h2>Predictions:</h2>
+            <p>{{ messages.meal_plan }}</p>
+            <p>{{ messages.calories }}</p>
+            <p>{{ messages.workout_plan }}</p>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
